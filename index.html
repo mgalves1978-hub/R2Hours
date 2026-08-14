@@ -39,10 +39,11 @@ body.light{
   --cn-edge:#9BE3C6; --am-edge:#A9D2F7; --off:#EDF0F4; --hov:rgba(0,0,0,.04);
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-html{background:var(--bg)}
+html{background:var(--bg);min-height:100%}
+html:has(body.light){background:#FFFFFF}
 body{background:var(--bg);color:var(--wht);font-family:var(--ft);-webkit-font-smoothing:antialiased;
-  -webkit-tap-highlight-color:transparent;max-width:1120px;margin:0 auto;
-  padding:18px 26px calc(40px + env(safe-area-inset-bottom));transition:background .2s,color .2s}
+  -webkit-tap-highlight-color:transparent;max-width:1120px;margin:0 auto;min-height:100vh;
+  padding:18px 26px calc(90px + env(safe-area-inset-bottom));transition:background .2s,color .2s}
 ::-webkit-scrollbar{width:3px;height:3px}::-webkit-scrollbar-thumb{background:var(--brd2);border-radius:4px}
 button,select{font-family:var(--fl);background:var(--hov);color:var(--g1);border:1px solid var(--brd2);
   border-radius:7px;padding:7px 12px;font-size:11px;font-weight:600;cursor:pointer;
@@ -53,15 +54,17 @@ button.on{background:var(--orange);border-color:var(--orange);color:#000}
 .eyebrow{font-family:var(--fl);font-size:10px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--g3)}
 
 /* ── HEADER ── */
-.topnav{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;
+.topnav{display:flex;align-items:center;justify-content:space-between;gap:12px;
   border-bottom:1px solid var(--brd);padding-bottom:14px}
-.tnl{display:flex;align-items:center;gap:16px}
-.r2lg img{height:34px;display:block}
-body.light .r2lg img{filter:invert(1)}
+.tnl{display:flex;align-items:center;gap:14px;min-width:0;flex:1}
+.tnl>div{min-width:0}
+.r2lg{display:inline-flex;align-items:center;border-radius:9px}
+.r2lg img{height:30px;display:block}
+body.light .r2lg{background:#0B1220;padding:6px 10px}
 .dv{width:1px;height:26px;background:var(--brd2)}
 .deck-label{font-family:var(--fl);font-size:9.5px;font-weight:700;letter-spacing:.10em;text-transform:uppercase;color:var(--orange)}
 .deck-title{font-family:var(--fl);font-size:11px;font-weight:500;color:var(--g2);letter-spacing:.01em;margin-top:2px}
-.tnr{display:flex;align-items:center;gap:8px}
+.tnr{display:flex;align-items:center;gap:8px;flex:none}
 .seg{display:flex;border:1px solid var(--brd2);border-radius:7px;overflow:hidden}
 .seg button{border:0;border-radius:0;padding:7px 14px;background:transparent}
 .seg button.on{background:var(--blue);color:#000}
@@ -169,9 +172,47 @@ body.light .r2lg img{filter:invert(1)}
 footer{margin-top:28px;padding-top:16px;border-top:1px solid var(--brd);font-family:var(--fl);font-size:10.5px;color:var(--g3);line-height:1.7}
 .hide{display:none !important}
 
+/* ── TAB HEADINGS ── */
+.tabhead{margin:22px 0 10px}
+.tabhead h1{font-family:var(--fl);font-size:22px;font-weight:600;letter-spacing:-.015em}
+.tabhead p{font-family:var(--fl);font-size:11.5px;color:var(--g3);margin-top:5px;letter-spacing:.02em;line-height:1.5}
+
+/* ── COUNTRIES TAB ── */
+.pillrow{display:flex;gap:8px;overflow-x:auto;-webkit-overflow-scrolling:touch;padding:2px 0 6px;scrollbar-width:none}
+.pillrow::-webkit-scrollbar{display:none}
+.pillrow button{flex:none;white-space:nowrap;border-radius:999px;padding:8px 16px;font-size:11.5px}
+.clist{margin-top:6px;border-top:1px solid var(--brd)}
+.crow{display:flex;align-items:center;gap:14px;padding:14px 4px;border-bottom:1px solid var(--brd);cursor:pointer}
+.crow:hover{background:var(--hov)}
+.crow .ncity{flex:1;min-width:0;transition:opacity .15s}
+.crow:not(.on) .ncity{opacity:.5}
+.toggle{width:44px;height:26px;border-radius:999px;background:var(--brd2);position:relative;flex:none;transition:background .2s}
+.toggle::after{content:"";position:absolute;top:2px;left:2px;width:20px;height:20px;border-radius:50%;background:#fff;transition:left .2s;box-shadow:0 1px 3px rgba(0,0,0,.35)}
+.crow.on .toggle{background:var(--green)}
+.crow.on .toggle::after{left:20px}
+
+/* ── DAY BAR ── */
+.daybar{display:flex;align-items:center;gap:8px;margin:10px 0 2px}
+.daybar .nav{display:flex;border:1px solid var(--brd2);border-radius:8px;overflow:hidden;flex:none}
+.daybar .nav button{border:0;border-radius:0;padding:8px 13px}
+.daybar .nav button+button{border-left:1px solid var(--brd2)}
+.daybar select{flex:1;min-width:0;padding:8px 12px}
+
+/* ── BOTTOM TAB BAR ── */
+.tabbar{position:fixed;left:50%;transform:translateX(-50%);bottom:0;z-index:60;width:100%;max-width:1120px;
+  display:flex;background:var(--bg);border-top:1px solid var(--brd);
+  padding-bottom:env(safe-area-inset-bottom)}
+.tabbar .tab{flex:1;background:transparent;border:0;border-radius:0;color:var(--g3);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;
+  padding:9px 0 8px;min-height:56px;font-family:var(--fl);font-size:9.5px;font-weight:600;letter-spacing:.03em}
+.tabbar .tab svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.tabbar .tab svg .fill{fill:currentColor;stroke:none}
+.tabbar .tab:hover{background:transparent;border:0;color:var(--g2)}
+.tabbar .tab.on{color:var(--blue)}
+
 @media (max-width:760px){
   :root{--labelw:104px;--rowh:28px}
-  body{padding:14px 14px 40px}
+  body{padding:14px 14px calc(84px + env(safe-area-inset-bottom))}
   .panels{grid-template-columns:1fr}
   .ruler .ticks span.dim{visibility:hidden}
   .lbl{flex-direction:column;align-items:flex-start;gap:0;justify-content:center}
@@ -196,22 +237,11 @@ footer{margin-top:28px;padding-top:16px;border-top:1px solid var(--brd);font-fam
     </div>
   </div>
   <div class="tnr">
-    <div class="seg">
-      <button id="mNow">Now</button><button id="mPlan">Plan</button>
-    </div>
     <button class="icobtn" id="themeBtn" title="Light / dark">&#9789;</button>
   </div>
 </div>
 
 <div class="banner" id="banner"></div>
-
-<div class="presets">
-  <span class="eyebrow">Countries</span>
-  <button data-preset="all">Everyone</button>
-  <button data-preset="latam">LatAm ops</button>
-  <button data-preset="ant">Ant sync</button>
-  <button data-preset="americas">Americas</button>
-</div>
 
 <!-- NOW -->
 <section id="viewNow">
@@ -231,9 +261,10 @@ footer{margin-top:28px;padding-top:16px;border-top:1px solid var(--brd);font-fam
 
 <!-- PLAN -->
 <section id="viewPlan" class="hide">
-  <div class="presets" style="margin-top:14px">
-    <span class="eyebrow">Day</span>
-    <button id="prevDay">&#9664;</button><button id="today">Today</button><button id="nextDay">&#9654;</button>
+  <div class="daybar">
+    <div class="nav">
+      <button id="prevDay" aria-label="Previous day">&#9664;</button><button id="today">Today</button><button id="nextDay" aria-label="Next day">&#9654;</button>
+    </div>
     <select id="anchor" aria-label="Anchor time zone"></select>
   </div>
 
@@ -266,17 +297,47 @@ footer{margin-top:28px;padding-top:16px;border-top:1px solid var(--brd);font-fam
     <button id="shareBtn">Share this slot</button>
   </div>
 
-  <div class="panels">
-    <div class="panel"><h2>Best windows &mdash; <em id="windowDay"></em></h2><div id="windows"></div></div>
-    <div class="panel"><h2>Clock-change watch</h2><div id="dstList"></div></div>
-  </div>
-
   <footer>
     Office hours 09:00&ndash;18:00, edge hours 07:00&ndash;09:00 and 18:00&ndash;22:00, closed 22:00&ndash;07:00 &mdash; local to each country. Slots are one hour.
-    Tap a country to include or exclude it; drag the bars to move the marker, or use the arrow keys.
+    Drag the bars to move the marker, or use the arrow keys.
     <b>Share this slot</b> copies a link that opens on the same moment in whatever zone the reader is in.
   </footer>
 </section>
+
+<!-- COUNTRIES -->
+<section id="viewCountries" class="hide">
+  <div class="tabhead">
+    <h1>Countries</h1>
+    <p>Pick a combination or toggle each country. This drives the Now and Plan views.</p>
+  </div>
+  <div class="pillrow">
+    <button data-preset="all">Everyone</button>
+    <button data-preset="latam">LatAm ops</button>
+    <button data-preset="ant">Ant sync</button>
+    <button data-preset="americas">Americas</button>
+  </div>
+  <div class="clist" id="countryList"></div>
+</section>
+
+<!-- MORE -->
+<section id="viewMore" class="hide">
+  <div class="tabhead">
+    <h1>More</h1>
+    <p>Best meeting windows and upcoming clock changes, following the day and anchor set in Plan.</p>
+  </div>
+  <div class="panel"><h2>Best windows &mdash; <em id="windowDay"></em></h2><div id="windows"></div></div>
+  <div class="panel" style="margin-top:16px"><h2>Clock-change watch</h2><div id="dstList"></div></div>
+  <footer style="margin-top:20px">
+    Office hours 09:00&ndash;18:00, edge hours 07:00&ndash;09:00 and 18:00&ndash;22:00, closed 22:00&ndash;07:00 &mdash; local to each country. Tap a best window to open it in Plan.
+  </footer>
+</section>
+
+<nav class="tabbar" role="tablist">
+  <button class="tab" data-mode="now" role="tab" aria-label="Now"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.2"/><path d="M12 7.5v4.5l3 1.8"/></svg><span>Now</span></button>
+  <button class="tab" data-mode="plan" role="tab" aria-label="Plan"><svg viewBox="0 0 24 24"><rect x="4" y="5.2" width="16" height="14.8" rx="2.2"/><path d="M4 9.5h16M8.2 3.2v3.2M15.8 3.2v3.2"/></svg><span>Plan</span></button>
+  <button class="tab" data-mode="countries" role="tab" aria-label="Countries"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M3.6 12h16.8M12 3.5c2.6 2.6 2.6 14.4 0 17M12 3.5c-2.6 2.6-2.6 14.4 0 17"/></svg><span>Countries</span></button>
+  <button class="tab" data-mode="more" role="tab" aria-label="More"><svg viewBox="0 0 24 24"><circle class="fill" cx="6" cy="12" r="1.5"/><circle class="fill" cx="12" cy="12" r="1.5"/><circle class="fill" cx="18" cy="12" r="1.5"/></svg><span>More</span></button>
+</nav>
 
 <script>
 (function(){
@@ -490,8 +551,8 @@ footer{margin-top:28px;padding-top:16px;border-top:1px solid var(--brd);font-fam
       var d=document.createElement("div");d.className="slot"+(best.sc.cn?" cn":"");d.tabIndex=0;
       d.innerHTML='<span class="t">'+hhmm(s)+"\u2013"+hhmm(e)+'</span><span class="m">'+
         (best.sc.core===best.sc.total?"everyone in core hours":best.sc.core+" core \u00b7 "+best.sc.edge+" on the edge")+'</span>';
-      d.addEventListener("click",function(){selSlot=best.i;renderPlan();});
-      d.addEventListener("keydown",function(ev){if(ev.key==="Enter"){selSlot=best.i;renderPlan();}});
+      d.addEventListener("click",function(){selSlot=best.i;setMode("plan");});
+      d.addEventListener("keydown",function(ev){if(ev.key==="Enter"){selSlot=best.i;setMode("plan");}});
       list.appendChild(d);
     });
   }
@@ -511,8 +572,8 @@ footer{margin-top:28px;padding-top:16px;border-top:1px solid var(--brd);font-fam
       var p=partsOf(slotDate(x.i),anchorTZ), d=document.createElement("div");
       d.className="slot";d.tabIndex=0;
       d.innerHTML='<span class="t">'+hhmm(p)+'</span><span class="m">'+whoIsOut(x.i).join(", ")+" out of hours</span>";
-      d.addEventListener("click",function(){selSlot=x.i;renderPlan();});
-      d.addEventListener("keydown",function(ev){if(ev.key==="Enter"){selSlot=x.i;renderPlan();}});
+      d.addEventListener("click",function(){selSlot=x.i;setMode("plan");});
+      d.addEventListener("keydown",function(ev){if(ev.key==="Enter"){selSlot=x.i;setMode("plan");}});
       list.appendChild(d);
     });
   }
@@ -576,27 +637,64 @@ footer{margin-top:28px;padding-top:16px;border-top:1px solid var(--brd);font-fam
   }
 
   function renderPlan(){
-    computeGrid();buildTicks();renderRows();renderConsensus();renderWindows();renderReadout();positionLines();
+    computeGrid();buildTicks();renderRows();renderConsensus();renderReadout();positionLines();
   }
+
+  /* ─── COUNTRIES VIEW ─── */
+  function renderCountries(){
+    var el=document.getElementById("countryList");if(!el)return;
+    var now=new Date();el.innerHTML="";
+    order.forEach(function(ci){
+      var c=CITIES[ci], p=partsOf(now,c.tz), b=bandOf(p), wk=isWk(p);
+      var row=document.createElement("div");
+      row.className="crow"+(c.on?" on":"");
+      row.tabIndex=0;row.setAttribute("role","switch");row.setAttribute("aria-checked",c.on?"true":"false");
+      var st=wk?"weekend":(b?"open":"closed");
+      row.innerHTML=
+        '<span class="dot '+(wk?"":cls(b,!!c.china))+'"></span>'+
+        '<div class="ncity"><div class="nm">'+c.country+'</div><div class="sub">'+c.city+" \u00b7 "+st+" \u00b7 "+offLabel(offsetMin(now,c.tz))+'</div></div>'+
+        '<span class="toggle"></span>';
+      function tog(){c.on=!c.on;clearPreset();renderCountries();}
+      row.addEventListener("click",tog);
+      row.addEventListener("keydown",function(e){if(e.key===" "||e.key==="Enter"){e.preventDefault();tog();}});
+      el.appendChild(row);
+    });
+  }
+
+  /* ─── MORE VIEW ─── */
+  function renderMore(){
+    computeGrid();
+    var ap=partsOf(slotDate(0),anchorTZ);
+    document.getElementById("windowDay").textContent=
+      dayShift===0?"today":(dayShift===1?"tomorrow":ap.weekday+" "+ap.day+"/"+ap.month);
+    renderWindows();renderDST();
+  }
+
   function render(){
     computeOrder();
-    if(mode==="now")renderNow();else renderPlan();
+    if(mode==="now")renderNow();
+    else if(mode==="plan")renderPlan();
+    else if(mode==="countries")renderCountries();
+    else if(mode==="more")renderMore();
   }
 
   /* ─── mode + theme ─── */
+  var VIEWS=["now","plan","countries","more"];
   function setMode(m){
     mode=m;
-    document.getElementById("viewNow").classList.toggle("hide",m!=="now");
-    document.getElementById("viewPlan").classList.toggle("hide",m!=="plan");
-    document.getElementById("mNow").classList.toggle("on",m==="now");
-    document.getElementById("mPlan").classList.toggle("on",m==="plan");
+    VIEWS.forEach(function(v){
+      document.getElementById("view"+v.charAt(0).toUpperCase()+v.slice(1)).classList.toggle("hide",v!==m);
+    });
+    document.querySelectorAll(".tabbar .tab").forEach(function(t){t.classList.toggle("on",t.dataset.mode===m);});
     render();
   }
-  document.getElementById("mNow").onclick=function(){setMode("now");};
-  document.getElementById("mPlan").onclick=function(){setMode("plan");};
+  document.querySelectorAll(".tabbar .tab").forEach(function(t){
+    t.onclick=function(){setMode(t.dataset.mode);};
+  });
   document.getElementById("themeBtn").onclick=function(){
     var light=document.body.classList.toggle("light");
     this.innerHTML=light?"&#9788;":"&#9789;";
+    document.documentElement.style.background=light?"#FFFFFF":"#000000";
     document.querySelector('meta[name="theme-color"]').setAttribute("content",light?"#FFFFFF":"#000000");
   };
 
@@ -677,14 +775,12 @@ footer{margin-top:28px;padding-top:16px;border-top:1px solid var(--brd);font-fam
   }
 
   /* ─── boot ─── */
-  document.getElementById("mNow").classList.toggle("on",mode==="now");
-  document.getElementById("mPlan").classList.toggle("on",mode==="plan");
   var shared=readHash();
   setMode(mode);
   renderDST();
   setInterval(function(){
     if(mode==="now"){renderNow();return;}
-    if(dayShift===0){if(selSlot===null)renderReadout();positionLines();}
+    if(mode==="plan"&&dayShift===0){if(selSlot===null)renderReadout();positionLines();}
   },1000);
   setInterval(function(){render();},10*60000);
   window.addEventListener("resize",function(){if(mode==="plan")buildTicks();});
