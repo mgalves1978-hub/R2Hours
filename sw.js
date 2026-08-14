@@ -1,5 +1,5 @@
 /* R2 Global Hours — offline shell */
-const CACHE = 'r2-hours-v6';
+const CACHE = 'r2-hours-v7';
 const ASSETS = ['./', './index.html', './manifest.json', './icon-192.png', './icon-512.png'];
 
 self.addEventListener('install', e => {
