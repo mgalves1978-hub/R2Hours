@@ -103,15 +103,19 @@ body.light .r2lg .ll{display:block}
 .ncity{flex:1;min-width:0}
 .ncity .nm{font-family:var(--fl);font-size:12.5px;font-weight:600;letter-spacing:.02em}
 .ncity .sub{font-family:var(--fl);font-size:10px;color:var(--g3);letter-spacing:.03em;margin-top:2px}
-.ntime{display:flex;flex-direction:column;align-items:flex-end;gap:6px}
-.ntime .hh{font-size:23px;font-weight:600;letter-spacing:-.02em;font-variant-numeric:tabular-nums;line-height:1}
+.ntime{display:flex;flex-direction:row;align-items:center;justify-content:flex-end;gap:12px}
+.ntime .hh{flex:none;font-size:24px;font-weight:600;letter-spacing:-.02em;font-variant-numeric:tabular-nums;line-height:1;text-align:right}
+.ntime .st{flex:none}
 .ntime .nday{font-size:10px;color:var(--orange);vertical-align:super;margin-left:2px;font-weight:700}
-.ntime .st{font-family:var(--fl);font-size:9px;font-weight:700;letter-spacing:.05em;
+.st{display:inline-block;font-family:var(--fl);font-size:9px;font-weight:700;letter-spacing:.05em;
   text-transform:uppercase;padding:3px 8px;border-radius:999px;white-space:nowrap;
   background:var(--badge-off);color:var(--badge-off-t)}
-.ntime .st.open{background:var(--badge-open);color:var(--badge-open-t)}
-.ntime .st.am{background:var(--badge-am);color:var(--badge-am-t)}
-.ntime .st.edge{background:var(--badge-edge);color:var(--badge-edge-t)}
+.st.open{background:var(--badge-open);color:var(--badge-open-t)}
+.st.am{background:var(--badge-am);color:var(--badge-am-t)}
+.st.edge{background:var(--badge-edge);color:var(--badge-edge-t)}
+.badgekey{display:grid;grid-template-columns:auto 1fr;gap:8px 10px;align-items:center;
+  margin-top:16px;font-family:var(--fl);font-size:10.5px;color:var(--g3);letter-spacing:.02em}
+.badgekey .st{justify-self:start}
 
 /* ── PLAN VIEW ── */
 .readout{display:flex;align-items:center;gap:16px;flex-wrap:wrap;margin:22px 0 4px}
@@ -270,13 +274,13 @@ footer{margin-top:28px;padding-top:16px;border-top:1px solid var(--brd);font-fam
     <div class="sub" id="nowSub"></div>
   </div>
   <div class="nowlist" id="nowList"></div>
-  <div class="legend">
-    <span><i class="sw" style="background:var(--cn-core)"></i>Open, China too</span>
-    <span><i class="sw" style="background:var(--am-core)"></i>Open</span>
-    <span><i class="sw" style="border:1px solid var(--g3);background:transparent"></i>Edge hours</span>
-    <span><i class="sw" style="background:var(--off)"></i>Closed</span>
+  <div class="badgekey">
+    <span class="st open">Open</span><span>green &mdash; open, China is also open</span>
+    <span class="st am">Open</span><span>blue &mdash; open, China closed</span>
+    <span class="st edge">Edge hours</span><span>early / late fringe hours</span>
+    <span class="st">Closed</span><span>outside working hours</span>
   </div>
-  <footer id="footNow">Tap a country to measure every other city against it. Open 07:00&ndash;22:00 local &middot; office hours 09:00&ndash;18:00.</footer>
+  <footer id="footNow">Tap a country to measure every other city against it. Working day 07:00&ndash;22:00 local &middot; core hours 09:00&ndash;18:00.</footer>
 </section>
 
 <!-- PLAN -->
@@ -458,7 +462,11 @@ footer{margin-top:28px;padding-top:16px;border-top:1px solid var(--brd);font-fam
     var now=new Date(), listEl=document.getElementById("nowList");
     var ref=byId[refId], refP=partsOf(now,ref.tz), refOff=offsetMin(now,ref.tz);
     var cnP=partsOf(now,CITIES[CN].tz), cnOpen=!!bandOf(cnP)&&!isWk(cnP);
-    var on=order.map(function(i){return CITIES[i];}).filter(function(c){return c.on;});
+    var usw=-1,use=-1;
+    for(var k=0;k<CITIES.length;k++){if(CITIES[k].id==="usw")usw=k;else if(CITIES[k].id==="use")use=k;}
+    var mid=order.filter(function(i){return i!==CN&&i!==usw&&i!==use;});
+    var nowOrder=[CN].concat(mid).concat([usw,use]);
+    var on=nowOrder.map(function(i){return CITIES[i];}).filter(function(c){return c.on;});
     var open=on.filter(function(c){var p=partsOf(now,c.tz);return bandOf(p)&&!isWk(p);});
 
     document.getElementById("nowHead").innerHTML=
@@ -482,11 +490,13 @@ footer{margin-top:28px;padding-top:16px;border-top:1px solid var(--brd);font-fam
       else if(b==="core"){stcls=chinaOn?"open":"am";stlabel="Open";}
       else if(b==="edge"){stcls="edge";stlabel="Edge hours";}
       else{stcls="";stlabel="Closed";}
+      var name=c.country, subCity=c.city;
+      if(c.id==="usw"){name="United States West Coast";subCity="Los Angeles";}
+      else if(c.id==="use"){name="United States East Coast";subCity="New York";}
       row.innerHTML=
-        '<span class="dot '+(wk?"":cls(b,chinaOn))+'"></span>'+
-        '<div class="ncity"><div class="nm">'+c.country+'</div><div class="sub">'+c.city+" \u00b7 "+rel+" \u00b7 "+offLabel(offsetMin(now,c.tz))+'</div></div>'+
-        '<div class="ntime"><span class="hh">'+hhmm(p)+(mark?'<span class="nday">'+mark+"</span>":"")+'</span>'+
-          '<span class="st '+stcls+'">'+stlabel+'</span></div>';
+        '<div class="ncity"><div class="nm">'+name+'</div><div class="sub">'+subCity+" \u00b7 "+rel+" \u00b7 "+offLabel(offsetMin(now,c.tz))+'</div></div>'+
+        '<div class="ntime"><span class="st '+stcls+'">'+stlabel+'</span>'+
+          '<span class="hh">'+hhmm(p)+(mark?'<span class="nday">'+mark+"</span>":"")+'</span></div>';
       row.addEventListener("click",function(){refId=c.id;renderNow();});
       row.addEventListener("keydown",function(e){if(e.key==="Enter"||e.key===" "){e.preventDefault();refId=c.id;renderNow();}});
       listEl.appendChild(row);
