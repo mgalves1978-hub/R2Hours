@@ -103,9 +103,9 @@ body.light .r2lg .ll{display:block}
 .ncity{flex:1;min-width:0}
 .ncity .nm{font-family:var(--fl);font-size:12.5px;font-weight:600;letter-spacing:.02em}
 .ncity .sub{font-family:var(--fl);font-size:10px;color:var(--g3);letter-spacing:.03em;margin-top:2px}
-.ntime{display:flex;flex-direction:row;align-items:center;justify-content:flex-end;gap:12px}
-.ntime .hh{flex:none;font-size:24px;font-weight:600;letter-spacing:-.02em;font-variant-numeric:tabular-nums;line-height:1;text-align:right}
-.ntime .st{flex:none}
+.ntime{display:grid;grid-template-columns:74px 64px;align-items:center;gap:12px}
+.ntime .hh{justify-self:end;font-size:24px;font-weight:600;letter-spacing:-.02em;font-variant-numeric:tabular-nums;line-height:1}
+.ntime .st{justify-self:center}
 .ntime .nday{font-size:10px;color:var(--orange);vertical-align:super;margin-left:2px;font-weight:700}
 .st{display:inline-block;font-family:var(--fl);font-size:9px;font-weight:700;letter-spacing:.05em;
   text-transform:uppercase;padding:3px 8px;border-radius:999px;white-space:nowrap;
@@ -275,12 +275,12 @@ footer{margin-top:28px;padding-top:16px;border-top:1px solid var(--brd);font-fam
   </div>
   <div class="nowlist" id="nowList"></div>
   <div class="badgekey">
-    <span class="st open">Open</span><span>green &mdash; open, China is also open</span>
-    <span class="st am">Open</span><span>blue &mdash; open, China closed</span>
-    <span class="st edge">Edge hours</span><span>early / late fringe hours</span>
+    <span class="st am">Open</span><span>blue &mdash; open, China is also open</span>
+    <span class="st open">Open</span><span>green &mdash; open, China closed</span>
+    <span class="st edge">Edge</span><span>early / late fringe hours</span>
     <span class="st">Closed</span><span>outside working hours</span>
   </div>
-  <footer id="footNow">Tap a country to measure every other city against it. Working day 07:00&ndash;22:00 local &middot; core hours 09:00&ndash;18:00.</footer>
+  <footer id="footNow">Tap a country to measure every other city against it. <b>Edge</b> = the fringe of the day (07:00&ndash;09:00 &amp; 18:00&ndash;22:00) &mdash; reachable but outside core hours. Working day 07:00&ndash;22:00 local &middot; core hours 09:00&ndash;18:00.</footer>
 </section>
 
 <!-- PLAN -->
@@ -487,8 +487,8 @@ footer{margin-top:28px;padding-top:16px;border-top:1px solid var(--brd);font-fam
       var chinaOn=chinaOpenNow(cnOpen);
       var stcls,stlabel;
       if(wk){stcls="";stlabel="Weekend";}
-      else if(b==="core"){stcls=chinaOn?"open":"am";stlabel="Open";}
-      else if(b==="edge"){stcls="edge";stlabel="Edge hours";}
+      else if(b==="core"){stcls=chinaOn?"am":"open";stlabel="Open";}
+      else if(b==="edge"){stcls="edge";stlabel="Edge";}
       else{stcls="";stlabel="Closed";}
       var name=c.country, subCity=c.city;
       if(c.id==="usw"){name="United States West Coast";subCity="Los Angeles";}
