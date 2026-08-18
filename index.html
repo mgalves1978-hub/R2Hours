@@ -26,8 +26,8 @@
   --blue:#2C9AFF; --orange:#FF9900; --wht:#FFFFFF;
   --g1:#E0E6F0; --g2:#9DAAB8; --g3:#5A6878;
   --green:#34D399; --red:#F87171;
-  --cn-core:#34D399; --cn-edge:#1E4E3C;
-  --am-core:#2C9AFF; --am-edge:#274B6E;
+  --cn-core:#2C9AFF; --cn-edge:#274B6E;
+  --am-core:#34D399; --am-edge:#1E4E3C;
   --off:#232A34; --hov:rgba(255,255,255,.05);
   --badge-open:rgba(52,211,153,.16); --badge-open-t:#34D399;
   --badge-am:rgba(44,154,255,.16);   --badge-am-t:#2C9AFF;
@@ -40,7 +40,7 @@
 body.light{
   --bg:#FFFFFF; --card:#FFFFFF; --brd:#ECEEF2; --brd2:#DDE2EA;
   --wht:#0B1220; --g1:#1A202C; --g2:#5A6878; --g3:#8794A5;
-  --cn-edge:#C7EFDF; --am-edge:#BFDDFF; --off:#EDF0F4; --hov:rgba(0,0,0,.04);
+  --cn-edge:#BFDDFF; --am-edge:#C7EFDF; --off:#EDF0F4; --hov:rgba(0,0,0,.04);
   --badge-open:#C7EFDF; --badge-open-t:#0F7A54;
   --badge-am:#D6E9FF; --badge-am-t:#0A5BB5;
   --badge-edge:#FFE7C2; --badge-edge-t:#8A5300;
@@ -88,12 +88,13 @@ body.light .r2lg .ll{display:block}
 .presets{display:flex;gap:7px;align-items:center;flex-wrap:wrap;margin-top:16px}
 
 /* ── NOW VIEW ── */
-.summary{margin:26px 0 18px}
+.summary{margin:18px 0 14px}
 .summary .big{font-size:clamp(30px,7vw,44px);font-weight:700;letter-spacing:-.03em;line-height:1.05}
 .summary .big em{font-style:normal;color:var(--green)}
 .summary .sub{font-family:var(--fl);font-size:11.5px;color:var(--g3);margin-top:6px;letter-spacing:.03em}
 .nowlist{background:var(--card);border:1px solid var(--brd);border-radius:var(--rad);overflow:hidden}
-.nrow{display:flex;align-items:center;gap:14px;padding:14px 15px;border-bottom:1px solid var(--brd);cursor:pointer}
+.nrow{display:flex;align-items:center;gap:12px;padding:10px 15px;border-bottom:1px solid var(--brd);cursor:pointer}
+.flag{flex:none;width:24px;text-align:center;font-size:19px;line-height:1}
 .nrow:last-child{border-bottom:0}
 .nrow:hover{background:var(--hov)}
 .nrow.ref{background:rgba(44,154,255,.06)}
@@ -103,18 +104,19 @@ body.light .r2lg .ll{display:block}
 .ncity{flex:1;min-width:0}
 .ncity .nm{font-family:var(--fl);font-size:12.5px;font-weight:600;letter-spacing:.02em}
 .ncity .sub{font-family:var(--fl);font-size:10px;color:var(--g3);letter-spacing:.03em;margin-top:2px}
-.ntime{display:grid;grid-template-columns:74px 64px;align-items:center;gap:12px}
-.ntime .hh{justify-self:end;font-size:24px;font-weight:600;letter-spacing:-.02em;font-variant-numeric:tabular-nums;line-height:1}
+.ntime{display:grid;grid-template-columns:74px auto;align-items:center;gap:12px}
 .ntime .st{justify-self:center}
-.ntime .nday{font-size:10px;color:var(--orange);vertical-align:super;margin-left:2px;font-weight:700}
+.tb{display:grid;grid-template-columns:auto 16px;align-items:start;column-gap:2px}
+.tb .hh{justify-self:end;font-size:24px;font-weight:600;letter-spacing:-.02em;font-variant-numeric:tabular-nums;line-height:1}
+.tb .nday{justify-self:start;align-self:start;font-size:10px;color:var(--orange);font-weight:700;line-height:1;padding-top:2px}
 .st{display:inline-block;font-family:var(--fl);font-size:9px;font-weight:700;letter-spacing:.05em;
   text-transform:uppercase;padding:3px 8px;border-radius:999px;white-space:nowrap;
   background:var(--badge-off);color:var(--badge-off-t)}
 .st.open{background:var(--badge-open);color:var(--badge-open-t)}
 .st.am{background:var(--badge-am);color:var(--badge-am-t)}
 .st.edge{background:var(--badge-edge);color:var(--badge-edge-t)}
-.badgekey{display:grid;grid-template-columns:auto 1fr;gap:8px 10px;align-items:center;
-  margin-top:16px;font-family:var(--fl);font-size:10.5px;color:var(--g3);letter-spacing:.02em}
+.badgekey{display:grid;grid-template-columns:auto 1fr;gap:5px 10px;align-items:center;
+  margin-top:12px;font-family:var(--fl);font-size:10px;color:var(--g3);letter-spacing:.02em}
 .badgekey .st{justify-self:start}
 
 /* ── PLAN VIEW ── */
@@ -134,11 +136,11 @@ body.light .r2lg .ll{display:block}
 .ruler .ticks span{font-family:var(--fl);font-size:9px;font-weight:600;color:var(--g3);text-align:center;font-variant-numeric:tabular-nums}
 .ruler .ticks span.mark{color:var(--g2)}
 .ruler.cn .ticks span{color:var(--cn-edge)}
-.ruler.cn .ticks span.open{color:var(--green)}
+.ruler.cn .ticks span.open{color:var(--cn-core)}
 .row{display:grid;grid-template-columns:var(--labelw) 1fr;align-items:center;height:var(--rowh);border-top:1px solid var(--brd)}
 .row:last-of-type{border-bottom:1px solid var(--brd)}
 .row.off{opacity:.3}
-.row.china .city{color:var(--green)}
+.row.china .city{color:var(--cn-core)}
 .lbl{display:flex;align-items:baseline;gap:8px;padding-right:12px;cursor:pointer;user-select:none;min-width:0}
 .lbl .city{font-family:var(--fl);font-size:10.5px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;
   color:var(--g1);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
@@ -191,7 +193,7 @@ body.light .r2lg .ll{display:block}
 .dst.soon .when{color:var(--orange)}
 .dst .sub{color:var(--g3);font-size:10.5px}
 .none{font-family:var(--fl);font-size:11.5px;color:var(--g3);line-height:1.6}
-footer{margin-top:28px;padding-top:16px;border-top:1px solid var(--brd);font-family:var(--fl);font-size:10.5px;color:var(--g3);line-height:1.7}
+footer{margin-top:18px;padding-top:12px;border-top:1px solid var(--brd);font-family:var(--fl);font-size:10.5px;color:var(--g3);line-height:1.6}
 .hide{display:none !important}
 
 /* ── TAB HEADINGS ── */
@@ -244,7 +246,7 @@ footer{margin-top:28px;padding-top:16px;border-top:1px solid var(--brd);font-fam
   .lbl .city{display:none}
   .lbl .code{display:block}
   .deck-title{font-size:13px}
-  .ntime{font-size:24px}
+  .tb .hh{font-size:23px}
 }
 @media (prefers-reduced-motion:no-preference){.needle.now{transition:left .4s linear}}
 </style>
@@ -389,6 +391,7 @@ footer{margin-top:28px;padding-top:16px;border-top:1px solid var(--brd);font-fam
 
   var byId={}; CITIES.forEach(function(c){byId[c.id]=c;});
   var CN=(function(){for(var i=0;i<CITIES.length;i++) if(CITIES[i].china) return i; return 0;})();
+  var FLAG={usw:"\uD83C\uDDFA\uD83C\uDDF8",use:"\uD83C\uDDFA\uD83C\uDDF8",mex:"\uD83C\uDDF2\uD83C\uDDFD",col:"\uD83C\uDDE8\uD83C\uDDF4",per:"\uD83C\uDDF5\uD83C\uDDEA",chl:"\uD83C\uDDE8\uD83C\uDDF1",bra:"\uD83C\uDDE7\uD83C\uDDF7",arg:"\uD83C\uDDE6\uD83C\uDDF7",chn:"\uD83C\uDDE8\uD83C\uDDF3"};
 
   var fmtCache={};
   function partsOf(date,tz){
@@ -483,7 +486,8 @@ footer{margin-top:28px;padding-top:16px;border-top:1px solid var(--brd);font-fam
       var row=document.createElement("div");
       row.className="nrow"+(c.id===refId?" ref":"");
       row.tabIndex=0;
-      var rel=c.id===refId?"reference":(diff===0?"same time":(Math.abs(diff)+"h "+(diff>0?"ahead":"behind")));
+      var rel=c.id===refId?"":(diff===0?"same time":(Math.abs(diff)+"h "+(diff>0?"ahead":"behind")));
+      var mid=rel?rel+" \u00b7 ":"";
       var chinaOn=chinaOpenNow(cnOpen);
       var stcls,stlabel;
       if(wk){stcls="";stlabel="Weekend";}
@@ -491,12 +495,13 @@ footer{margin-top:28px;padding-top:16px;border-top:1px solid var(--brd);font-fam
       else if(b==="edge"){stcls="edge";stlabel="Edge";}
       else{stcls="";stlabel="Closed";}
       var name=c.country, subCity=c.city;
-      if(c.id==="usw"){name="United States West Coast";subCity="Los Angeles";}
-      else if(c.id==="use"){name="United States East Coast";subCity="New York";}
+      if(c.id==="usw"){name="US West Coast";subCity="Los Angeles";}
+      else if(c.id==="use"){name="US East Coast";subCity="New York";}
       row.innerHTML=
-        '<div class="ncity"><div class="nm">'+name+'</div><div class="sub">'+subCity+" \u00b7 "+rel+" \u00b7 "+offLabel(offsetMin(now,c.tz))+'</div></div>'+
+        '<span class="flag">'+FLAG[c.id]+'</span>'+
+        '<div class="ncity"><div class="nm">'+name+'</div><div class="sub">'+subCity+" \u00b7 "+mid+offLabel(offsetMin(now,c.tz))+'</div></div>'+
         '<div class="ntime"><span class="st '+stcls+'">'+stlabel+'</span>'+
-          '<span class="hh">'+hhmm(p)+(mark?'<span class="nday">'+mark+"</span>":"")+'</span></div>';
+          '<span class="tb"><span class="hh">'+hhmm(p)+'</span><span class="nday">'+(mark||"")+'</span></span></div>';
       row.addEventListener("click",function(){refId=c.id;renderNow();});
       row.addEventListener("keydown",function(e){if(e.key==="Enter"||e.key===" "){e.preventDefault();refId=c.id;renderNow();}});
       listEl.appendChild(row);
@@ -685,15 +690,24 @@ footer{margin-top:28px;padding-top:16px;border-top:1px solid var(--brd);font-fam
   function renderCountries(){
     var el=document.getElementById("countryList");if(!el)return;
     var now=new Date();el.innerHTML="";
+    var cnP=partsOf(now,CITIES[CN].tz), cnOpen=!!bandOf(cnP)&&!isWk(cnP), chinaOn=chinaOpenNow(cnOpen);
     order.forEach(function(ci){
       var c=CITIES[ci], p=partsOf(now,c.tz), b=bandOf(p), wk=isWk(p);
       var row=document.createElement("div");
       row.className="crow"+(c.on?" on":"");
       row.tabIndex=0;row.setAttribute("role","switch");row.setAttribute("aria-checked",c.on?"true":"false");
-      var st=wk?"weekend":(b?"open":"closed");
+      var stcls,stlabel;
+      if(wk){stcls="";stlabel="Weekend";}
+      else if(b==="core"){stcls=chinaOn?"am":"open";stlabel="Open";}
+      else if(b==="edge"){stcls="edge";stlabel="Edge";}
+      else{stcls="";stlabel="Closed";}
+      var name=c.country, subCity=c.city;
+      if(c.id==="usw"){name="US West Coast";subCity="Los Angeles";}
+      else if(c.id==="use"){name="US East Coast";subCity="New York";}
       row.innerHTML=
-        '<span class="dot '+(wk?"":cls(b,!!c.china))+'"></span>'+
-        '<div class="ncity"><div class="nm">'+c.country+'</div><div class="sub">'+c.city+" \u00b7 "+st+" \u00b7 "+offLabel(offsetMin(now,c.tz))+'</div></div>'+
+        '<span class="flag">'+FLAG[c.id]+'</span>'+
+        '<div class="ncity"><div class="nm">'+name+'</div><div class="sub">'+subCity+" \u00b7 "+offLabel(offsetMin(now,c.tz))+'</div></div>'+
+        '<span class="st '+stcls+'">'+stlabel+'</span>'+
         '<span class="toggle"></span>';
       function tog(){c.on=!c.on;clearPreset();renderCountries();}
       row.addEventListener("click",tog);
